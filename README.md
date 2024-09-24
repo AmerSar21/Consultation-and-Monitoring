@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">MERN Crash Course 🚀</h1>
 
 ![Demo App](/frontend/public/screenshot-for-readme.png)
@@ -34,3 +35,7 @@ npm run start
 ```
 
 ### I'll see you in the next one! 🚀
+=======
+# mern-crash-course
+A test development for a MERN Stack Web App
+>>>>>>> f37f0a33b3aca3fc77a5b36c83cfeb8e5eb09b68

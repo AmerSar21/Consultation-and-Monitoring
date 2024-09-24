@@ -39,7 +39,10 @@ bower_components
 build/Release
 
 # Dependency directories
+<<<<<<< HEAD
 /backend/node_modules/
+=======
+>>>>>>> f37f0a33b3aca3fc77a5b36c83cfeb8e5eb09b68
 node_modules/
 jspm_packages/
 
@@ -128,4 +131,8 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
+<<<<<<< HEAD
 .pnp.*
+=======
+.pnp.*
+>>>>>>> f37f0a33b3aca3fc77a5b36c83cfeb8e5eb09b68
