@@ -33,11 +33,11 @@ const Navbar = () => {
 				</Text>
 
 				<HStack spacing={2} alignItems={"center"}>
-					<Link to={"/create"}>
+					{/* <Link to={"/create"}>
 						<Button>
 							<PlusSquareIcon fontSize={20} />
 						</Button>
-					</Link>
+					</Link> */}
 					<Link to={"/login"}>
 						<Button>
 							<VscAccount fontSize={20} />

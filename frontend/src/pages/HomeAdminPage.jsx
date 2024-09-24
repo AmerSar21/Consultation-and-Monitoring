@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useProductStore } from "../store/product";
 import ProductCard from "../components/ProductCard";
 
-const HomePage = () => {
+const HomeAdminPage = () => {
 	const { fetchProducts, products } = useProductStore();
 
 	useEffect(() => {
@@ -53,4 +53,4 @@ const HomePage = () => {
 		</Container>
 	);
 };
-export default HomePage;
+export default HomeAdminPage;

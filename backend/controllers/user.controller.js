@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
+import bcrypt from "bcrypt";
 
 export const getUsers = async (req, res) => {
     try {
@@ -11,8 +12,13 @@ export const getUsers = async (req, res) => {
     }
 };
 
+export const createUserusingBcrypt = async (req, res) => {
+
+};
+
 export const createUser = async (req, res) => {
     const user = req.body; // user will send this data
+    user.password = await bcrypt.hash(user.password, 10); //encrypt password using bcrypt
 
     if (!user.name || !user.email || !user.password || !user.role) {
         return res.status(400).json({ success: false, message: "Please provide all fields" });
@@ -30,6 +36,7 @@ export const createUser = async (req, res) => {
 
 
 };
+
 export const updateUser = async (req, res) => {
     const { id } = req.params;
 
