@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { PlusSquareIcon } from "@chakra-ui/icons";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
+import { VscAccount } from "react-icons/vsc";
+
 
 const Navbar = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -34,6 +36,11 @@ const Navbar = () => {
 					<Link to={"/create"}>
 						<Button>
 							<PlusSquareIcon fontSize={20} />
+						</Button>
+					</Link>
+					<Link to={"/login"}>
+						<Button>
+							<VscAccount fontSize={20} />
 						</Button>
 					</Link>
 					<Button onClick={toggleColorMode}>
