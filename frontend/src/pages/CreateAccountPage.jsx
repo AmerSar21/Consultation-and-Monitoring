@@ -12,25 +12,28 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useProductStore } from "../store/product";
+import { useUserStore } from "../store/user";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccountPage = () => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const handleClick = () => setShow(!show);
 
-  const [newProduct, setNewProduct] = useState({
+  const [newUser, setNewUser] = useState({
     name: "",
-    price: "",
-    image: "",
+    email: "",
+    password: "",
+    role: "",
   });
 
   const toast = useToast();
 
-  const { createProduct } = useProductStore();
+  const { createUser } = useUserStore();
 
-  const handleAddProduct = async () => {
-    const { success, message } = await createProduct(newProduct);
+  const handleAddUser = async () => {
+    const { success, message } = await createUser(newUser);
     if (!success) {
       toast({
         title: "Error",
@@ -46,7 +49,8 @@ const CreateAccountPage = () => {
         isClosable: true,
       });
     }
-    setNewProduct({ name: "", price: "", image: "" });
+    setNewUser({ name: "", email: "", password: "", role: "" });
+    navigate("/");
   };
 
   return (
@@ -55,7 +59,6 @@ const CreateAccountPage = () => {
         <Heading as={"h1"} size={"2xl"} textAlign={"center"} mb={8}>
           SignUp
         </Heading>
-
         <Box
           w={"full"}
           bg={useColorModeValue("white", "gray.800")}
@@ -64,33 +67,41 @@ const CreateAccountPage = () => {
           shadow={"md"}
         >
           <VStack spacing={4}>
-            <Select placeholder="Select Role">
-              <option value="option1">Teacher</option>
-              <option value="option2">Student</option>
+            <Select
+              placeholder="Select Role"
+              name="role"
+              value={newUser.role}
+              onChange={(e) =>
+                setNewUser({ ...newUser, role: e.target.value })
+              }
+            >
+              <option value="teacher">Teacher</option>
+              <option value="student">Student</option>
             </Select>
             <Input
               placeholder="Fullname"
               name="name"
-              value={newProduct.name}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, name: e.target.value })
-              }
+              value={newUser.name}
+              onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
             />
             <Input
               placeholder="Email"
-              name="price"
-              type="number"
-              value={newProduct.price}
+              name="email"
+              value={newUser.email}
               onChange={(e) =>
-                setNewProduct({ ...newProduct, price: e.target.value })
+                setNewUser({ ...newUser, email: e.target.value })
               }
             />
-
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
+                name="password"
+                value={newUser.password}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, password: e.target.value })
+                }
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -98,7 +109,7 @@ const CreateAccountPage = () => {
                 </Button>
               </InputRightElement>
             </InputGroup>
-            <Button colorScheme="blue" onClick={handleAddProduct} w="full">
+            <Button colorScheme="blue" onClick={handleAddUser} w="full">
               Register
             </Button>
           </VStack>
