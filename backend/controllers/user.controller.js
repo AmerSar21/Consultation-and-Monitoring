@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import User from "../models/user.model.js";
-import bcrypt from "bcrypt";
 
 export const getUsers = async (req, res) => {
     try {
@@ -10,10 +9,6 @@ export const getUsers = async (req, res) => {
         console.log("error in fetching Users:", error.message);
         res.status(500).json({ success: false, message: "Server Error" });
     }
-};
-
-export const createUserusingBcrypt = async (req, res) => {
-
 };
 
 export const createUser = async (req, res) => {

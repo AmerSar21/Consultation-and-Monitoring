@@ -1,6 +1,5 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
-
 import CreatePage from "./pages/CreatePage";
 import CreateAccountPage from "./pages/CreateAccountPage";
 import HomeAdminPage from "./pages/HomeAdminPage";
