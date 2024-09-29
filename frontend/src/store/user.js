@@ -36,7 +36,7 @@ export const useUserStore = create((set) => ({
 		// update the ui immediately, without needing a refresh
 		set((state) => ({ user: state.user.filter((user) => user._id !== uid) }));
 		set({ user: data });
-		
+
 		return { success: true };
 	},
 	deleteUsers: async (uid) => {
