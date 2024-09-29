@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { generateToken } from "../utils/jwt.utils.js"; 
 
 export const validateLogin = async(email, password) => {
-    try {
+    try { 
         const existingUser = await User.findOne({email});
         if(!existingUser){
             throw new Error("User not found!");

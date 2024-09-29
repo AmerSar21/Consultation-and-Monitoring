@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import User from "../models/user.model.js";
 
 export const getUsers = async (req, res) => {
@@ -7,6 +8,22 @@ export const getUsers = async (req, res) => {
         res.status(200).json({ success: true, data: Users });
     } catch (error) {
         console.log("error in fetching Users:", error.message);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+};
+
+export const getUser = async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid User Id" });
+    }
+    try {
+        const getFoundUser = await User.findById(id);
+        if (!getFoundUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        res.status(200).json({ success: true, message: "User found successfully", user: getFoundUser });
+    } catch (error) {
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };

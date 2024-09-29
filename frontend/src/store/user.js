@@ -1,8 +1,10 @@
 import { create } from "zustand";
 
 export const useUserStore = create((set) => ({
+	user: null,
 	users: [],
 	setUsers: (users) => set({ users }),
+	setUser: (user) => set({ user }),
 	createUser: async (newUser) => {
 		if (!newUser.name || !newUser.email || !newUser.password || !newUser.role) {
 			return { success: false, message: "Please fill in all fields." };
@@ -23,6 +25,19 @@ export const useUserStore = create((set) => ({
 		const res = await fetch("/api/users");
 		const data = await res.json();
 		set({ users: data.data });
+	},
+	fetchUserById: async (uid) => {
+		const res = await fetch(`/api/users/${uid}`, {
+			method: "GET"
+		});
+		const data = await res.json();
+		if (!data.success) return { success: false, message: data.message };
+
+		// update the ui immediately, without needing a refresh
+		set((state) => ({ user: state.user.filter((user) => user._id !== uid) }));
+		set({ user: data });
+		
+		return { success: true };
 	},
 	deleteUsers: async (uid) => {
 		const res = await fetch(`/api/users/${uid}`, {

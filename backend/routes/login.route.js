@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use(cors());
 
-router.get("/", login);
+router.post("/", login);
 
 export default router;
