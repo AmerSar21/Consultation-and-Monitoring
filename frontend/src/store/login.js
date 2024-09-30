@@ -12,9 +12,6 @@ export const useLoginStore = create((set) => ({
 			body: JSON.stringify(loggedUser),
 		});
 		const result = await res.json();
-		console.log("store: ", result);
-		console.log("result: ", result.success);
-		console.log("message: ", result.message);
 		set({ user: result });
 
 		if (!result.success) return { success: false, message: result.message };

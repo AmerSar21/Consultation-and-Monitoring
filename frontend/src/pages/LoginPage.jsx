@@ -22,10 +22,7 @@ const LoginPage = () => {
   });
   const { authLogin } = useLoginStore();
   const handleSubmit = async () => {
-    const { success, message } = await authLogin(getUserData);
-    console.log("fe: ", success);
-    console.log("fe: ", message);
-        
+    const { success, message } = await authLogin(getUserData);        
     if (!success) {
       toast({
         title: "Error",
