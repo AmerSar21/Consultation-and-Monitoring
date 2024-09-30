@@ -4,7 +4,7 @@ export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const token = await validateLogin(email,password);
-        res.json({ token : token });
+        res.json({ token : token, success: true, message: "Login Successfull"});
     } catch (error) {
         res.status(401).json({ success: false, message: "Invalid Credentials" });
     }
