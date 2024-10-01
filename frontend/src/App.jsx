@@ -7,9 +7,11 @@ import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 
 function App() {
+	const token = localStorage.getItem("token");
+
   return (
     <Box minH={"100vh"} bg={useColorModeValue("gray.100", "gray.900")}>
-      <Navbar />
+      {token ? <Navbar /> : null}
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
