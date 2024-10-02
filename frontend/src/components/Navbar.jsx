@@ -8,18 +8,31 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Text,
   useColorMode,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  useDisclosure,
+  MenuGroup,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-
-import { SettingsIcon, LogoutIcon, ChevronRightIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { useRef } from "react";
+import {
+  SettingsIcon,
+  ChevronRightIcon,
+  HamburgerIcon,
+} from "@chakra-ui/icons";
 import { IoMoon } from "react-icons/io5";
 import { LuSun } from "react-icons/lu";
-import { VscAccount } from "react-icons/vsc";
+import { BsFillPersonFill, BsBoxArrowRight } from "react-icons/bs";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
+
   const token = localStorage.getItem("token");
 
   const handleLogout = () => {
@@ -37,17 +50,31 @@ const Navbar = () => {
           sm: "row",
         }}
       >
-        <Text
-          fontSize={{ base: "22", sm: "28" }}
-          fontWeight={"bold"}
-          textTransform={"uppercase"}
-          textAlign={"center"}
-          bgGradient={"linear(to-r, cyan.400, blue.500)"}
-          bgClip={"text"}
-        >
-          <Link to={"/"}>ConsMon</Link>
-        </Text>
-
+        <Menu>
+          <Button
+            as={IconButton}
+            aria-label="Options"
+            icon={<HamburgerIcon />}
+            variant="outline"
+            onClick={onOpen}
+          />
+          <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            finalFocusRef={btnRef}
+          >
+            <DrawerOverlay />
+            <DrawerContent>
+              <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+              <DrawerBody>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+                <p>Some contents...</p>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </Menu>
         <HStack spacing={2} alignItems={"center"}>
           <Menu>
             <MenuButton
@@ -57,12 +84,15 @@ const Navbar = () => {
               variant="outline"
             />
             <MenuList>
-              <MenuItem icon={<SettingsIcon />}>Account Settings</MenuItem>
+              <MenuGroup title="Profile">
+                <MenuItem icon={<BsFillPersonFill />}>My Account</MenuItem>
+                <MenuItem icon={<SettingsIcon />}>Account Settings</MenuItem>
+              </MenuGroup>
               <MenuItem onClick={toggleColorMode}>
                 {colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
-				{colorMode === "light" ? "  Dark Mode" : "  Light Mode"}
+                {colorMode === "light" ? "  Dark Mode" : "  Light Mode"}
               </MenuItem>
-              <MenuItem icon={<ChevronRightIcon />}>Logout</MenuItem>
+              <MenuItem icon={<BsBoxArrowRight />}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </HStack>

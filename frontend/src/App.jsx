@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 
 function App() {
-	const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   return (
     <Box minH={"100vh"} bg={useColorModeValue("gray.100", "gray.900")}>
