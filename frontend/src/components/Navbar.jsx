@@ -91,7 +91,9 @@ const Navbar = () => {
                 {colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
                 {colorMode === "light" ? "  Dark Mode" : "  Light Mode"}
               </MenuItem>
-              <MenuItem icon={<ChevronRightIcon />}>Logout</MenuItem>
+              <MenuItem icon={<ChevronRightIcon />} onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </HStack>
