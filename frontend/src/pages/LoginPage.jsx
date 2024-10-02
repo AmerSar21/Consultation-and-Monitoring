@@ -30,7 +30,7 @@ const LoginPage = () => {
         status: "error",
         isClosable: true,
       });
-      navigate("/login");
+      navigate("/");
     } else {
       toast({
         title: "Success",

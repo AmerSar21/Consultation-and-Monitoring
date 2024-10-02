@@ -18,7 +18,6 @@ function App() {
       {token ? <Navbar /> : null}
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/homeAdmin" element={<HomeAdminPage />} />
         <Route path="/homeChairman" element={<HomeChairmanPage />} />
         <Route path="/homeSecretary" element={<HomeSecretaryPage />} />
