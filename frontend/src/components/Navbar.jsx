@@ -24,11 +24,13 @@ import {
   HamburgerIcon,
 } from "@chakra-ui/icons";
 import { IoMoon } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import { LuSun } from "react-icons/lu";
 import { BsFillPersonFill, BsBoxArrowRight } from "react-icons/bs";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -37,6 +39,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    navigate("/");
   };
 
   return (
@@ -55,7 +58,6 @@ const Navbar = () => {
             as={IconButton}
             aria-label="Options"
             icon={<HamburgerIcon />}
-            variant="outline"
             onClick={onOpen}
           />
           <Drawer
@@ -77,12 +79,9 @@ const Navbar = () => {
         </Menu>
         <HStack spacing={2} alignItems={"center"}>
           <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<HamburgerIcon />}
-              variant="outline"
-            />
+            <MenuButton as={IconButton} aria-label="Account Name">
+              Account Name
+            </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
                 <MenuItem icon={<BsFillPersonFill />}>My Account</MenuItem>
@@ -92,7 +91,7 @@ const Navbar = () => {
                 {colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
                 {colorMode === "light" ? "  Dark Mode" : "  Light Mode"}
               </MenuItem>
-              <MenuItem icon={<BsBoxArrowRight />}>Logout</MenuItem>
+              <MenuItem icon={<ChevronRightIcon />}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </HStack>
