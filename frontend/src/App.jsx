@@ -9,9 +9,18 @@ import HomeStudentPage from "./pages/HomeStudentPage";
 import HomeTeacherPage from "./pages/HomeTeacherPage";
 import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
+import { AuthProvider, useAuth } from "./context/auth";
 
 function App() {
-  const token = localStorage.getItem("token");
+  return (
+    <AuthProvider>
+      <MainApp />
+    </AuthProvider>
+  );
+}
+
+const MainApp = () => {
+  const { token } = useAuth();
 
   return (
     <Box minH={"100vh"} bg={useColorModeValue("gray.100", "gray.900")}>
@@ -28,6 +37,6 @@ function App() {
       </Routes>
     </Box>
   );
-}
+};
 
 export default App;

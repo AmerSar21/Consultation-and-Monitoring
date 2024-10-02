@@ -27,18 +27,17 @@ import { IoMoon } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { LuSun } from "react-icons/lu";
 import { BsFillPersonFill, BsBoxArrowRight } from "react-icons/bs";
+import { useAuth } from "../context/auth";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
-
+  const { logout } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
-  const token = localStorage.getItem("token");
-
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    logout();
     navigate("/");
   };
 

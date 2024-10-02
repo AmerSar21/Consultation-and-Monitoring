@@ -16,6 +16,6 @@ export const useLoginStore = create((set) => ({
 		set({ user: result });
 
 		if (!result.success) return { success: false, message: result.message };
-		return { success: true };
+		return { success: true, message: result.message, token: result.token };
 	},
 }));

@@ -12,17 +12,19 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginStore } from "../store/login";
+import { useAuth } from "../context/auth";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const { login } = useAuth();
   const [getUserData, setUserData] = useState({
     email: "",
     password: "",
   });
   const { authLogin } = useLoginStore();
   const handleSubmit = async () => {
-    const { success, message } = await authLogin(getUserData);        
+    const { success, message, token } = await authLogin(getUserData);        
     if (!success) {
       toast({
         title: "Error",
@@ -32,6 +34,8 @@ const LoginPage = () => {
       });
       navigate("/");
     } else {
+      console.log(success, message, token);
+      login(token);
       toast({
         title: "Success",
         description: message,
@@ -40,7 +44,6 @@ const LoginPage = () => {
       });
       navigate("/homeAdmin");
     }
-
     setUserData({
       email: "",
       name: "",
