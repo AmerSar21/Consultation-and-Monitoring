@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import userService from "../services/user.service";
+import { getAllUsers } from "../services/user.service.js";
 
 export const getUsers = async (req, res) => {
     try {
-        const Users = await userService.getUsers();
+        const Users = await getAllUsers();
         res.status(200).json({ success: true, data: Users });
     } catch (error) {
         console.log("error in fetching Users:", error.message);
