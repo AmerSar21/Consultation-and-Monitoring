@@ -14,7 +14,7 @@ export const getActivities = async (req, res) => {
 export const createActivity = async (req, res) => {
 	const activity = req.body; // user will send this data
 
-	if (!activity.name || !activity.student || !activity.teacher || !activity.date || !activity.duration || !activity.status) {
+	if (!activity.name || !activity.student || !activity.teacher || !activity.date || !activity.duration) {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
 	}
 
