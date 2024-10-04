@@ -21,8 +21,12 @@ export const useUserStore = create((set) => ({
 		console.log(res, data);
 		return { success: true, message: "Registered successfully" };
 	},
-	fetchUsers: async () => {
-		const res = await fetch("/api/users");
+	fetchUsers: async (token) => {
+		const res = await fetch("/api/users", {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		});
 		const data = await res.json();
 		set({ users: data.data });
 	},
@@ -36,7 +40,6 @@ export const useUserStore = create((set) => ({
 		// update the ui immediately, without needing a refresh
 		set((state) => ({ user: state.user.filter((user) => user._id !== uid) }));
 		set({ user: data });
-
 		return { success: true };
 	},
 	deleteUsers: async (uid) => {

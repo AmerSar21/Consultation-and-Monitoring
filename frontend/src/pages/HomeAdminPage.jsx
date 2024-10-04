@@ -1,23 +1,77 @@
-import { Container, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import {
+  Container,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useProductStore } from "../store/product";
-import ProductCard from "../components/ProductCard";
+import { useUserStore } from "../store/user";
+import { useNavigate } from "react-router-dom";
 
 const HomeAdminPage = () => {
-	const { fetchProducts, products } = useProductStore();
+  const token = localStorage.getItem("token");
+  const { fetchUsers, users } = useUserStore();
 
-	useEffect(() => {
-		fetchProducts();
-	}, [fetchProducts]);
-	console.log("products", products);
+  const navigate = useNavigate();
 
-	return (
-		<Container maxW='container.xl' py={12}>
-			<VStack spacing={8}>
-			
-			</VStack>
-		</Container>
-	);
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        await fetchUsers(token);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (token) {
+      getUsers();
+    } else navigate("/");
+  }, [fetchUsers, token, users, navigate]);
+
+  return (
+    <Container maxW="container.xl" py={12}>
+      <VStack spacing={8}>
+        <Text>Welcome</Text>
+        <Text
+          fontSize={"30"}
+          fontWeight={"bold"}
+          bgGradient={"linear(to-r, cyan.400, blue.500)"}
+          bgClip={"text"}
+        >
+          Current Users
+        </Text>
+        <Table striped bordered hover responsive>
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>Email</Th> 
+			  <Th>Role</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {users.length > 0 ? (
+              users.map((user) => {
+                return (
+                  <Tr key={user._id}>
+                    <Td>{user.name}</Td>
+                    <Td>{user.email}</Td>
+                    <Td>{user.role}</Td>
+                  </Tr>
+                );
+              })
+            ) : (
+              <Tr>
+                <Td colSpan="2">No users found</Td>
+              </Tr>
+            )}
+          </Tbody>
+        </Table>
+      </VStack>
+    </Container>
+  );
 };
 export default HomeAdminPage;

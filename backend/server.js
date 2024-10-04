@@ -21,8 +21,8 @@ const __dirname = path.resolve();
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use(cors());
 
-app.use("/api/users", userRoutes);
 app.use("/api/auth", loginRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/departments", departmentRoutes);
 app.use("/api/activities", activityRoutes);
