@@ -18,13 +18,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { login } = useAuth();
+  const { authLogin } = useLoginStore();
   const [getUserData, setUserData] = useState({
     email: "",
     password: "",
   });
-  const { authLogin } = useLoginStore();
   const handleSubmit = async () => {
-    const { success, message, token } = await authLogin(getUserData);        
+    const { success, message, token } = await authLogin(getUserData);
     if (!success) {
       toast({
         title: "Error",

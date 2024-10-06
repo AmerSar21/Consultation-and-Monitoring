@@ -14,7 +14,7 @@ export const useLoginStore = create((set) => ({
 		const result = await res.json();
 		localStorage.setItem("token", result.token);
 		set({ user: result });
-
+		
 		if (!result.success) return { success: false, message: result.message };
 		return { success: true, message: result.message, token: result.token };
 	},

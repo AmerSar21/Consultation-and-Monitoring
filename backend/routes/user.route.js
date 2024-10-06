@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { createUser, deleteUser, getUsers, getUser, updateUser } from "../controllers/user.controller.js";
-import { authenticateToken } from "../utils/auth.utils.js";
+import { authenticateToken } from "../api/auth.utils.js";
 
 const router = express.Router();
 

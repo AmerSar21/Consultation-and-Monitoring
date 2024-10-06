@@ -11,10 +11,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useUserStore } from "../store/user";
+import { useLoginStore } from "../store/login";
 import { useNavigate } from "react-router-dom";
 
 const HomeAdminPage = () => {
   const token = localStorage.getItem("token");
+  const { user } = useLoginStore();
   const { fetchUsers, users } = useUserStore();
 
   const navigate = useNavigate();
@@ -30,12 +32,12 @@ const HomeAdminPage = () => {
     if (token) {
       getUsers();
     } else navigate("/");
-  }, [fetchUsers, token, users, navigate]);
+  }, [fetchUsers, token, users, user, navigate]);
 
   return (
     <Container maxW="container.xl" py={12}>
       <VStack spacing={8}>
-        <Text>Welcome</Text>
+        <Text>Welcome {user.name}</Text>
         <Text
           fontSize={"30"}
           fontWeight={"bold"}

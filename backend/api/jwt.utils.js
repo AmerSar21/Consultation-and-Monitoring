@@ -10,3 +10,7 @@ export function generateToken(user) {
     };
     return jwt.sign(payload, secretKey, { expiresIn : '1h' });
 }
+
+export function decodeToken(token){
+    return jwt.decode(token, { message : "Token decoded."});
+}
