@@ -18,7 +18,6 @@ export const useUserStore = create((set) => ({
 		});
 		const data = await res.json();
 		set((state) => ({ users: [...state.users, data.data] }));
-		console.log(res, data);
 		return { success: true, message: "Registered successfully" };
 	},
 	fetchUsers: async (token) => {

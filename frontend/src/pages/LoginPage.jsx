@@ -34,7 +34,6 @@ const LoginPage = () => {
       });
       navigate("/");
     } else {
-      console.log(success, message, token);
       login(token);
       toast({
         title: "Success",

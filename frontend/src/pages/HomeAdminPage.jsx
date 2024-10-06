@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomeAdminPage = () => {
   const token = localStorage.getItem("token");
-  const { user } = useLoginStore();
+  const { user, decodeToken } = useLoginStore();
   const { fetchUsers, users } = useUserStore();
 
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ const HomeAdminPage = () => {
     const getUsers = async () => {
       try {
         await fetchUsers(token);
+        await decodeToken(token);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +38,7 @@ const HomeAdminPage = () => {
   return (
     <Container maxW="container.xl" py={12}>
       <VStack spacing={8}>
-        <Text>Welcome {user.name}</Text>
+        <Text>Welcome {user && user.user ? user.user.name : 'Guest'}</Text>
         <Text
           fontSize={"30"}
           fontWeight={"bold"}
@@ -50,8 +51,8 @@ const HomeAdminPage = () => {
           <Thead>
             <Tr>
               <Th>Name</Th>
-              <Th>Email</Th> 
-			  <Th>Role</Th>
+              <Th>Email</Th>
+              <Th>Role</Th>
             </Tr>
           </Thead>
           <Tbody>
