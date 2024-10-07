@@ -17,7 +17,7 @@ import {
   useDisclosure,
   MenuGroup,
 } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   SettingsIcon,
   ChevronRightIcon,
@@ -26,20 +26,36 @@ import {
 import { IoMoon } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { LuSun } from "react-icons/lu";
-import { BsFillPersonFill, BsBoxArrowRight } from "react-icons/bs";
+import { BsFillPersonFill } from "react-icons/bs";
 import { useAuth } from "../context/auth";
+import { useLoginStore } from "../store/login";
 
 const Navbar = () => {
+  const token = localStorage.getItem("token");
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useNavigate();
   const { logout } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+  const { user, decodeToken } = useLoginStore();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
+  useEffect(() => {
+    const getLoggedUser = async () => {
+      try {
+        await decodeToken(token);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (token) {
+      getLoggedUser();
+    } else navigate("/");
+  }, [token, user, navigate]);
 
   return (
     <Container maxW={"1140px"} px={4}>
@@ -67,11 +83,12 @@ const Navbar = () => {
           >
             <DrawerOverlay />
             <DrawerContent>
-              <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
+              <DrawerHeader borderBottomWidth="1px">{user && user.user ? user.user.name : 'Guest'} </DrawerHeader>
               <DrawerBody>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                {user && user.user && user.user.role == 'admin' ? <p>Accounts</p> : ''}
+                <p>Dashboard</p>
+                <p>Activities</p>
+                <p>Departments</p>
               </DrawerBody>
             </DrawerContent>
           </Drawer>
