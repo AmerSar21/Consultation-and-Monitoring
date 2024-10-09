@@ -26,7 +26,13 @@ import {
 import { IoMoon } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { LuSun } from "react-icons/lu";
-import { BsFillPersonFill } from "react-icons/bs";
+import {
+  BsActivity,
+  BsFillHouseFill,
+  BsFillHousesFill,
+  BsFillPersonFill,
+  BsPeopleFill,
+} from "react-icons/bs";
 import { useAuth } from "../context/auth";
 import { useLoginStore } from "../store/login";
 
@@ -83,12 +89,56 @@ const Navbar = () => {
           >
             <DrawerOverlay />
             <DrawerContent>
-              <DrawerHeader borderBottomWidth="1px">{user && user.user ? user.user.name : 'Guest'} </DrawerHeader>
+              <DrawerHeader borderBottomWidth="1px">
+                {user && user.user ? user.user.name : "Guest"}{" "}
+              </DrawerHeader>
               <DrawerBody>
-                {user && user.user && user.user.role == 'admin' ? <p>Accounts</p> : ''}
-                <p>Dashboard</p>
-                <p>Activities</p>
-                <p>Departments</p>
+                {user && user.user ? (
+                  <MenuGroup>
+                    {user.user.role === "admin" && (
+                      <>
+                        <MenuItem icon={<BsFillHouseFill />}>
+                          Dashboard
+                        </MenuItem>
+                        <MenuItem icon={<BsPeopleFill />}>Accounts</MenuItem>
+                        <MenuItem icon={<BsFillHousesFill />}>
+                          Departments
+                        </MenuItem>
+                      </>
+                    )}
+                    {user.user.role === "chairman" && (
+                      <>
+                        <MenuItem icon={<BsFillHouseFill />}>
+                          Dashboard
+                        </MenuItem>
+                        <MenuItem icon={<BsPeopleFill />}>Accounts</MenuItem>
+                        <MenuItem icon={<BsFillHousesFill />}>
+                          Departments
+                        </MenuItem>
+                        <MenuItem icon={<BsActivity />}>Activities</MenuItem>
+                      </>
+                    )}
+                    {user.user.role === "secretary" && (
+                      <>
+                        <MenuItem icon={<BsFillHouseFill />}>
+                          Dashboard
+                        </MenuItem>
+                        <MenuItem icon={<BsPeopleFill />}>Accounts</MenuItem>
+                        <MenuItem icon={<BsActivity />}>Activities</MenuItem>
+                      </>
+                    )}
+                    {["teacher", "student"].includes(user.user.role) && (
+                      <>
+                        <MenuItem icon={<BsFillHouseFill />}>
+                          Dashboard
+                        </MenuItem>
+                        <MenuItem icon={<BsActivity />}>Activities</MenuItem>
+                      </>
+                    )}
+                  </MenuGroup>
+                ) : (
+                  <p>...</p>
+                )}
               </DrawerBody>
             </DrawerContent>
           </Drawer>
