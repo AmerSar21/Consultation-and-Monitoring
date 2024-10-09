@@ -37,7 +37,7 @@ const HomeAdminPage = () => {
 
   return (
     <Container maxW="container.xl" py={12}>
-      <VStack spacing={8}>
+      <VStack sIpacing={8}>
         <Text>Welcome {user && user.user ? user.user.name : 'Guest'}</Text>
         <Text
           fontSize={"30"}
@@ -45,7 +45,7 @@ const HomeAdminPage = () => {
           bgGradient={"linear(to-r, cyan.400, blue.500)"}
           bgClip={"text"}
         >
-          Current Users
+          Accounts
         </Text>
         <Table striped bordered hover responsive>
           <Thead>
