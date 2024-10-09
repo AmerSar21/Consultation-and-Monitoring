@@ -146,7 +146,7 @@ const Navbar = () => {
         <HStack spacing={2} alignItems={"center"}>
           <Menu>
             <MenuButton as={IconButton} aria-label="Account Name">
-              Account Name
+              {user && user.user ? user.user.name : "Guest"}{" "}
             </MenuButton>
             <MenuList>
               <MenuGroup title="Profile">
