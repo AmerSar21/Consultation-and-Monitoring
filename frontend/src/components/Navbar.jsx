@@ -23,9 +23,9 @@ import {
   ChevronRightIcon,
   HamburgerIcon,
 } from "@chakra-ui/icons";
+import { LuSun } from "react-icons/lu";
 import { IoMoon } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { LuSun } from "react-icons/lu";
 import {
   BsActivity,
   BsFillHouseFill,
@@ -153,10 +153,10 @@ const Navbar = () => {
                 <MenuItem icon={<BsFillPersonFill />}>My Account</MenuItem>
                 <MenuItem icon={<SettingsIcon />}>Account Settings</MenuItem>
               </MenuGroup>
-              <MenuItem onClick={toggleColorMode}>
+              {/* <MenuItem onClick={toggleColorMode}>
                 {colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
                 {colorMode === "light" ? "  Dark Mode" : "  Light Mode"}
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem icon={<ChevronRightIcon />} onClick={handleLogout}>
                 Logout
               </MenuItem>
