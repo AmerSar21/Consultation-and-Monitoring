@@ -7,6 +7,7 @@ import HomeChairmanPage from "./pages/HomeChairmanPage";
 import HomeSecretaryPage from "./pages/HomeSecretaryPage";
 import HomeStudentPage from "./pages/HomeStudentPage";
 import HomeTeacherPage from "./pages/HomeTeacherPage";
+import HomeTestPage from "./pages/HomeTestPage";
 import LoginPage from "./pages/LoginPage";
 import Navbar from "./components/Navbar";
 import { AuthProvider, useAuth } from "./context/auth";
@@ -32,6 +33,7 @@ const MainApp = () => {
         <Route path="/homeSecretary" element={<HomeSecretaryPage />} />
         <Route path="/homeStudent" element={<HomeStudentPage />} />
         <Route path="/homeTeacher" element={<HomeTeacherPage />} />
+        <Route path="/products" element={<HomeTestPage />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/createAccount" element={<CreateAccountPage />} />
       </Routes>

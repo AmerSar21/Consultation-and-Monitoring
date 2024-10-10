@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useProductStore } from "../store/product";
 import ProductCard from "../components/ProductCard";
 
-const HomeAdminPage = () => {
+const HomeTestPage = () => {
 	const { fetchProducts, products } = useProductStore();
 
 	useEffect(() => {
@@ -52,4 +52,4 @@ const HomeAdminPage = () => {
 		</Container>
 	);
 };
-export default HomeAdminPage;
+export default HomeTestPage;
