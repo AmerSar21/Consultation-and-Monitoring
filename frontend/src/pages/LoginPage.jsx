@@ -9,13 +9,15 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginStore } from "../store/login";
 import { useAuth } from "../context/auth";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const { user } = useLoginStore();
   const toast = useToast();
   const { login } = useAuth();
   const { authLogin } = useLoginStore();
@@ -25,7 +27,14 @@ const LoginPage = () => {
   });
   const handleSubmit = async () => {
     const { success, message, token } = await authLogin(getUserData);
-    if (!success) {
+    if(getUserData.email == "" || getUserData.password == "" || !success){
+      toast({
+        title: "Error",
+        description: "Please Complete the Fields",
+        status: "error",
+        isClosable: true,
+      });
+    } else if (!success) {
       toast({
         title: "Error",
         description: message,
@@ -49,6 +58,13 @@ const LoginPage = () => {
       password: "",
     });
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token == "") {
+      console.log("No token found");
+    }
+  }, [token, user]);
 
   return (
     <Container maxW={"container.sm"}>
