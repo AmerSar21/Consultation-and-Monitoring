@@ -4,7 +4,7 @@
 ### Setup .env file
 
 ```shell
-MONGO_URI=mongodb+srv://amersarangani22:zHArm3An4lF1gMBK@cluster0.jmnz1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+MONGO_URI= Your Database
 PORT=5000
 ```
 
