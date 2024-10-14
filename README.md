@@ -1,24 +1,10 @@
 <<<<<<< HEAD
-<h1 align="center">MERN Crash Course 🚀</h1>
-
-![Demo App](/frontend/public/screenshot-for-readme.png)
-
-[Video Tutorial on Youtube](https://youtu.be/Dukz-3mS3Us)
-
-About This Course:
-
--   ⚛️ Tech Stack: React.js, Node.js, Express.js, MongoDB, Chakra UI
--   🔥 Build an API
--   📱 Responsive UI With React.js and ChakraUI
--   🐞 Error Handling
--   🌐 Deployment
--   🚀 And Many More Cool Features
--   ✅ This is a lot of work. Support my work by subscribing to the [Channel](https://www.youtube.com/@asaprogrammer_)
+<h1 align="center">Consultation and Monitoring Web</h1>
 
 ### Setup .env file
 
 ```shell
-MONGO_URI=your_mongo_uri
+MONGO_URI=mongodb+srv://amersarangani22:zHArm3An4lF1gMBK@cluster0.jmnz1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 PORT=5000
 ```
 
@@ -34,8 +20,7 @@ npm run build
 npm run start
 ```
 
-### I'll see you in the next one! 🚀
 =======
-# mern-crash-course
-A test development for a MERN Stack Web App
+# A consultation and monitoring for teachers and students
+A project for consultation between teachers and students (MERN Stack Web App) 
 >>>>>>> f37f0a33b3aca3fc77a5b36c83cfeb8e5eb09b68
