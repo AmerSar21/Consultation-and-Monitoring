@@ -1,15 +1,6 @@
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
-
-export const getProducts = async (req, res) => {
-	try {
-		const products = await Product.find({});
-		res.status(200).json({ success: true, data: products });
-	} catch (error) {
-		console.log("error in fetching products:", error.message);
-		res.status(500).json({ success: false, message: "Server Error" });
-	}
-};
+import ProductService from "../services/product.services.js";
 
 export const createProduct = async (req, res) => {
 	const product = req.body; // user will send this data
@@ -18,13 +9,21 @@ export const createProduct = async (req, res) => {
 		return res.status(400).json({ success: false, message: "Please provide all fields" });
 	}
 
-	const newProduct = new Product(product);
-
 	try {
-		await newProduct.save();
+		const newProduct = await ProductService.createProduct(req.body);
 		res.status(201).json({ success: true, data: newProduct });
 	} catch (error) {
 		console.error("Error in creating product:", error.message);
+		res.status(500).json({ success: false, message: "Server Error" });
+	}
+};
+
+export const getProducts = async (req, res) => {
+	try {
+		const products = await ProductService.getAllProducts();
+		res.status(200).json({ success: true, data: products });
+	} catch (error) {
+		console.log("error in fetching products:", error.message);
 		res.status(500).json({ success: false, message: "Server Error" });
 	}
 };
@@ -39,7 +38,7 @@ export const updateProduct = async (req, res) => {
 	}
 
 	try {
-		const updatedProduct = await Product.findByIdAndUpdate(id, product, { new: true });
+		const updatedProduct = await ProductService.updateProduct(id, product);
 		res.status(200).json({ success: true, data: updatedProduct });
 	} catch (error) {
 		res.status(500).json({ success: false, message: "Server Error" });
@@ -54,7 +53,7 @@ export const deleteProduct = async (req, res) => {
 	}
 
 	try {
-		await Product.findByIdAndDelete(id);
+		await ProductService.deleteProduct(id);
 		res.status(200).json({ success: true, message: "Product deleted" });
 	} catch (error) {
 		console.log("error in deleting product:", error.message);
