@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
-import { generateToken, decodeToken } from "../api/jwt.utils.js";
+import { generateToken, decodeToken } from "../middleware/jwt.utils.js";
 
 export const validateLogin = async (email, password) => {
     try {
