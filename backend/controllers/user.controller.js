@@ -1,11 +1,29 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import User from "../models/user.model.js";
-import { getAllUsers } from "../services/user.service.js";
+import UserService from "../services/user.service.js";
+
+export const createUser = async (req, res) => {
+    const user = req.body;
+    user.password = await bcrypt.hash(user.password, 10);
+
+    if (!user.name || !user.email || !user.password || !user.role) {
+        return res.status(400).json({ success: false, message: "Please provide all fields" });
+    }
+
+    try {
+        const newUser = await UserService.createUser(user);
+        res.status(201).json({ success: true, data: newUser });
+    } catch (error) {
+        console.error("Error in Creating User:", error.message);
+        res.status(500).json({ success: false, message: "Server Error" });
+    };
+
+
+};
 
 export const getUsers = async (req, res) => {
     try {
-        const Users = await getAllUsers();
+        const Users = await UserService.getAllUsers();
         res.status(200).json({ success: true, data: Users });
     } catch (error) {
         console.log("error in fetching Users:", error.message);
@@ -19,7 +37,7 @@ export const getUser = async (req, res) => {
         return res.status(404).json({ success: false, message: "Invalid User Id" });
     }
     try {
-        const getFoundUser = await User.findById(id);
+        const getFoundUser = await UserService.getUserById(id);
         if (!getFoundUser) {
             return res.status(404).json({ success: false, message: "User not found" });
         }
@@ -27,27 +45,6 @@ export const getUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: "Server Error" });
     }
-};
-
-export const createUser = async (req, res) => {
-    const user = req.body; // user will send this data
-    user.password = await bcrypt.hash(user.password, 10); //encrypt password using bcrypt
-
-    if (!user.name || !user.email || !user.password || !user.role) {
-        return res.status(400).json({ success: false, message: "Please provide all fields" });
-    }
-
-    const newUser = new User(user);
-
-    try {
-        await newUser.save();
-        res.status(201).json({ success: true, data: newUser });
-    } catch (error) {
-        console.error("Error in Creating User:", error.message);
-        res.status(500).json({ success: false, message: "Server Error" });
-    };
-
-
 };
 
 export const updateUser = async (req, res) => {
@@ -60,7 +57,7 @@ export const updateUser = async (req, res) => {
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+        const updatedUser = await UserService.updateUser(id, user, { new: true });
         res.status(200).json({ success: true, message: "User Updated Successfully", updateUser });
     } catch (error) {
         res.status(500).json({ success: false, message: "Server Error" });
@@ -75,7 +72,7 @@ export const deleteUser = async (req, res) => {
     }
 
     try {
-        await User.findByIdAndDelete(id);
+        await UserService.deleteUser(id);
         res.status(200).json({ success: true, message: "User deleted" });
     } catch (error) {
         console.log("error in deleting User:", error.message);
