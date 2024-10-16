@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-<h1 align="center">Consultation and Monitoring Web</h1>
+<h1 align="center">Consultation and Monitoring System for Teachers and Students</h1>
 
 ### Setup .env file
 
