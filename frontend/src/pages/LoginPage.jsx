@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginStore } from "../store/login";
+import { authLogin } from '../services/login.service';
 import { useAuth } from "../context/auth";
 
 const LoginPage = () => {
@@ -20,7 +21,7 @@ const LoginPage = () => {
   const { user } = useLoginStore();
   const toast = useToast();
   const { login } = useAuth();
-  const { authLogin } = useLoginStore();
+  // const { authLogin } = useLoginStore();
   const [getUserData, setUserData] = useState({
     email: "",
     password: "",

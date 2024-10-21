@@ -12,11 +12,12 @@ import {
 import { useEffect } from "react";
 import { useUserStore } from "../store/user";
 import { useLoginStore } from "../store/login";
+import { decodeToken } from '../services/login.service';
 import { useNavigate } from "react-router-dom";
 
 const HomeAdminPage = () => {
   const token = localStorage.getItem("token");
-  const { user, decodeToken } = useLoginStore();
+  const { user } = useLoginStore();
   const { fetchUsers, users } = useUserStore();
 
   const navigate = useNavigate();
